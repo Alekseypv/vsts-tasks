@@ -1,13 +1,13 @@
 
 declare module 'vsts-task-lib/taskcommand' {
 	export class TaskCommand {
-	    constructor(command: any, properties: any, message: any);
-	    command: string;
-	    message: string;
-	    properties: {
-	        [key: string]: string;
-	    };
-	    toString(): string;
+		constructor(command: any, properties: any, message: any);
+		command: string;
+		message: string;
+		properties: {
+			[key: string]: string;
+		};
+		toString(): string;
 	}
 	export function commandFromString(commandLine: any): TaskCommand;
 
@@ -26,15 +26,15 @@ declare module 'vsts-task-lib/toolrunner' {
 	 * @param     ignoreReturnCode     optional.  defaults to failing on non zero.  ignore will not fail leaving it up to the caller
 	 */
 	export interface IExecOptions {
-	    cwd: string;
-	    env: {
-	        [key: string]: string;
-	    };
-	    silent: boolean;
-	    failOnStdErr: boolean;
-	    ignoreReturnCode: boolean;
-	    outStream: stream.Writable;
-	    errStream: stream.Writable;
+		cwd: string;
+		env: {
+			[key: string]: string;
+		};
+		silent: boolean;
+		failOnStdErr: boolean;
+		ignoreReturnCode: boolean;
+		outStream: stream.Writable;
+		errStream: stream.Writable;
 	}
 	/**
 	 * Interface for exec results returned from synchronous exec functions
@@ -45,87 +45,87 @@ declare module 'vsts-task-lib/toolrunner' {
 	 * @param     error       Error on failure
 	 */
 	export interface IExecResult {
-	    stdout: string;
-	    stderr: string;
-	    code: number;
-	    error: Error;
+		stdout: string;
+		stderr: string;
+		code: number;
+		error: Error;
 	}
 	export function debug(message: any): void;
 	export class ToolRunner extends events.EventEmitter {
-	    constructor(toolPath: any);
-	    toolPath: string;
-	    args: string[];
-	    silent: boolean;
-	    private _debug(message);
-	    private _argStringToArray(argString);
-	    /**
-	     * Add argument
-	     * Append an argument or an array of arguments
-	     *
-	     * @param     val        string cmdline or array of strings
-	     * @returns   void
-	     */
-	    arg(val: string | string[]): void;
-	    /**
-	     * Append argument command line string
-	     * e.g. '"arg one" two -z' would append args[]=['arg one', 'two', '-z']
-	     *
-	     * @param     val        string cmdline
-	     * @returns   void
-	     */
-	    argString(val: string): void;
-	    /**
-	     * Add path argument
-	     * Add path string to argument, path string should not contain double quoted
-	     * This will call arg(val, literal?) with literal equal 'true'
-	     *
-	     * @param     val     path argument string
-	     * @returns   void
-	     */
-	    pathArg(val: string): void;
-	    /**
-	     * Add argument(s) if a condition is met
-	     * Wraps arg().  See arg for details
-	     *
-	     * @param     condition     boolean condition
-	     * @param     val     string cmdline or array of strings
-	     * @returns   void
-	     */
-	    argIf(condition: any, val: any): void;
-	    /**
-	     * Exec a tool.
-	     * Output will be streamed to the live console.
-	     * Returns promise with return code
-	     *
-	     * @param     tool     path to tool to exec
-	     * @param     options  optional exec options.  See IExecOptions
-	     * @returns   number
-	     */
-	    exec(options?: IExecOptions): Q.Promise<number>;
-	    /**
-	     * Exec a tool synchronously.
-	     * Output will be *not* be streamed to the live console.  It will be returned after execution is complete.
-	     * Appropriate for short running tools
-	     * Returns IExecResult with output and return code
-	     *
-	     * @param     tool     path to tool to exec
-	     * @param     options  optionalexec options.  See IExecOptions
-	     * @returns   IExecResult
-	     */
-	    execSync(options?: IExecOptions): IExecResult;
+		constructor(toolPath: any);
+		toolPath: string;
+		args: string[];
+		silent: boolean;
+		private _debug(message);
+		private _argStringToArray(argString);
+		/**
+		 * Add argument
+		 * Append an argument or an array of arguments
+		 *
+		 * @param     val        string cmdline or array of strings
+		 * @returns   void
+		 */
+		arg(val: string | string[]): void;
+		/**
+		 * Append argument command line string
+		 * e.g. '"arg one" two -z' would append args[]=['arg one', 'two', '-z']
+		 *
+		 * @param     val        string cmdline
+		 * @returns   void
+		 */
+		argString(val: string): void;
+		/**
+		 * Add path argument
+		 * Add path string to argument, path string should not contain double quoted
+		 * This will call arg(val, literal?) with literal equal 'true'
+		 *
+		 * @param     val     path argument string
+		 * @returns   void
+		 */
+		pathArg(val: string): void;
+		/**
+		 * Add argument(s) if a condition is met
+		 * Wraps arg().  See arg for details
+		 *
+		 * @param     condition     boolean condition
+		 * @param     val     string cmdline or array of strings
+		 * @returns   void
+		 */
+		argIf(condition: any, val: any): void;
+		/**
+		 * Exec a tool.
+		 * Output will be streamed to the live console.
+		 * Returns promise with return code
+		 *
+		 * @param     tool     path to tool to exec
+		 * @param     options  optional exec options.  See IExecOptions
+		 * @returns   number
+		 */
+		exec(options?: IExecOptions): Q.Promise<number>;
+		/**
+		 * Exec a tool synchronously.
+		 * Output will be *not* be streamed to the live console.  It will be returned after execution is complete.
+		 * Appropriate for short running tools
+		 * Returns IExecResult with output and return code
+		 *
+		 * @param     tool     path to tool to exec
+		 * @param     options  optionalexec options.  See IExecOptions
+		 * @returns   IExecResult
+		 */
+		execSync(options?: IExecOptions): IExecResult;
 	}
 
 }
 declare module 'vsts-task-lib/vault' {
 	export class Vault {
-	    constructor();
-	    private _keyFile;
-	    private _store;
-	    initialize(): void;
-	    storeSecret(name: string, data: string): boolean;
-	    retrieveSecret(name: string): string;
-	    private getKey();
-	    private genKey();
+		constructor();
+		private _keyFile;
+		private _store;
+		initialize(): void;
+		storeSecret(name: string, data: string): boolean;
+		retrieveSecret(name: string): string;
+		private getKey();
+		private genKey();
 	}
 
 }
@@ -135,8 +135,8 @@ declare module 'vsts-task-lib/task' {
 	import fs = require('fs');
 	import trm = require('vsts-task-lib/toolrunner');
 	export enum TaskResult {
-	    Succeeded = 0,
-	    Failed = 1,
+		Succeeded = 0,
+		Failed = 1,
 	}
 	export var _outStream: any;
 	export var _errStream: any;
@@ -256,11 +256,40 @@ declare module 'vsts-task-lib/task' {
 	 * @param     scheme            auth scheme such as OAuth or username/password etc...
 	 */
 	export interface EndpointAuthorization {
-	    parameters: {
-	        [key: string]: string;
-	    };
-	    scheme: string;
+		parameters: {
+			[key: string]: string;
+		};
+		scheme: string;
 	}
+	/*
+	 * Gets the endpoint data parameter value with specified key for a service endpoint
+	 * If the endpoint data parameter was not set and is not optional, the task will fail with an error message. Execution will halt.
+	 *
+	 * @param id name of the service endpoint
+	 * @param key of the parameter
+	 * @param optional whether the endpoint data is optional
+	 * @returns {string} value of the endpoint data parameter
+	 */
+	export function getEndpointDataParameter(id: string, key: string, optional: boolean): string;
+	/**
+	 * Gets the endpoint authorization scheme for a service endpoint
+	 * If the endpoint authorization scheme is not set and is not optional, the task will fail with an error message. Execution will halt.
+	 *
+	 * @param id name of the service endpoint
+	 * @param optional whether the endpoint authorization scheme is optional
+	 * @returns {string} value of the endpoint authorization scheme
+	 */
+	export function getEndpointAuthorizationScheme(id: string, optional: boolean): string;
+	/**
+	 * Gets the endpoint authorization parameter value for a service endpoint with specified key
+	 * If the endpoint authorization parameter is not set and is not optional, the task will fail with an error message. Execution will halt.
+	 *
+	 * @param id name of the service endpoint
+	 * @param key key to find the endpoint authorization parameter
+	 * @param optional optional whether the endpoint authorization scheme is optional
+	 * @returns {string} value of the endpoint authorization parameter value
+	 */
+	export function getEndpointAuthorizationParameter(id: string, key: string, optional: boolean): string;
 	/**
 	 * Gets the authorization details for a service endpoint
 	 * If the authorization was not set and is not optional, the task will fail with an error message. Execution will halt.
@@ -413,21 +442,21 @@ declare module 'vsts-task-lib/task' {
 	export function match(list: any, pattern: any, options: any): string[];
 	export function filter(pattern: any, options: any): (element: string, indexed: number, array: string[]) => boolean;
 	export class TestPublisher {
-	    constructor(testRunner: any);
-	    testRunner: string;
-	    publish(resultFiles: any, mergeResults: any, platform: any, config: any, runTitle: any, publishRunAttachments: any): void;
+		constructor(testRunner: any);
+		testRunner: string;
+		publish(resultFiles: any, mergeResults: any, platform: any, config: any, runTitle: any, publishRunAttachments: any): void;
 	}
 	export class CodeCoveragePublisher {
-	    constructor();
-	    publish(codeCoverageTool: any, summaryFileLocation: any, reportDirectory: any, additionalCodeCoverageFiles: any): void;
+		constructor();
+		publish(codeCoverageTool: any, summaryFileLocation: any, reportDirectory: any, additionalCodeCoverageFiles: any): void;
 	}
 	export class CodeCoverageEnabler {
-	    private buildTool;
-	    private ccTool;
-	    constructor(buildTool: string, ccTool: string);
-	    enableCodeCoverage(buildProps: {
-	        [key: string]: string;
-	    }): void;
+		private buildTool;
+		private ccTool;
+		constructor(buildTool: string, ccTool: string);
+		enableCodeCoverage(buildProps: {
+			[key: string]: string;
+		}): void;
 	}
 	export function _loadData(): void;
 
